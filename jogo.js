@@ -1,23 +1,69 @@
-var altura = 0
-var largura = 0
+//posição randomica do mosquito
+var altura = 0;
+var largura = 0;
 
-function ajusaTatamanhoPalcoJogo() {
-    var altura = window.innerHeight
-    var largura = window.innerWidth
-    
-    console.log(largura, altura)
+function ajustaTamanhoPalcoJogo() {
+  altura = window.innerHeight;
+  largura = window.innerWidth;
+
+  console.log(largura, altura);
 }
 
-ajusaTatamanhoPalcoJogo()
+ajustaTamanhoPalcoJogo();
 
-var posicaoX = Math.floor(Math.random() * largura)
-var posicaoY = Math.floor(Math.random() * altura)
+function posicaoRandomica() {
+  //remover o mosquito anterior (caso exista)
+  if (document.getElementById("mosquito")) {
+    document.getElementById("mosquito").remove();
+  }
 
-console.log(posicaoX,posicaoY)
+  var posicaoX = Math.floor(Math.random() * largura) - 90;
+  var posicaoY = Math.floor(Math.random() * altura) - 90;
 
-//elemento html
+  //corrigir posições negativas
+  posicaoX = posicaoX < 0 ? 0 : posicaoX;
+  posicaoY = posicaoY < 0 ? 0 : posicaoY;
 
-var mosquito = document.createElement('img')
-mosquito.src = 'imagens/mosquito.png'
+  console.log(posicaoX, posicaoY);
 
-document.body.appendChild(mosquito)
+  //elemento html
+
+  var mosquito = document.createElement("img");
+  mosquito.src = "imagens/mosquito.png";
+  mosquito.className = tamanhoAleatorio() + " " + ladoAleatorio();
+  mosquito.style.left = posicaoX + "px";
+  mosquito.style.top = posicaoY + "px";
+  mosquito.style.position = "absolute";
+  mosquito.id = "mosquito";
+
+  document.body.appendChild(mosquito);
+}
+
+//define o tamanho randomico do mosquito
+function tamanhoAleatorio() {
+  var classe = Math.floor(Math.random() * 3);
+
+  switch (classe) {
+    case 0:
+      return "mosquito1";
+
+    case 1:
+      return "mosquito2";
+
+    case 2:
+      return "mosquito3";
+  }
+}
+
+// define o lado do mosquito
+function ladoAleatorio() {
+  var classe = Math.floor(Math.random() * 2);
+
+  switch (classe) {
+    case 0:
+      return "ladoA";
+
+    case 1:
+      return "ladoB";
+  }
+}
