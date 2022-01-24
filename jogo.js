@@ -4,6 +4,18 @@ var altura = 0;
 var largura = 0;
 var vidas = 1;
 var tempo = 15;
+var nivel = window.location.search
+nivel = nivel.replace('?','')
+
+var criaMosquitoTempo = 1500
+
+if(nivel === 'normal'){
+  var criaMosquitoTempo = 1500
+}else if(nivel === 'dificil') {
+  var criaMosquitoTempo = 1000
+}else if(nivel === 'chucknorris') {
+  var criaMosquitoTempo = 750
+}
 
 function ajustaTamanhoPalcoJogo() {
   altura = window.innerHeight;
@@ -20,7 +32,7 @@ var cronometro = setInterval(function () {
   if (tempo < 0) {
     clearInterval(cronometro)
     clearInterval(criaMosquito)
-    alert('Ganhou')
+    window.location.href = 'vitoria.html'
   } else {
     document.getElementById("cronometro").innerHTML = tempo;
   }
