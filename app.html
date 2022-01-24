@@ -15,12 +15,14 @@
         <img id="v2" src="imagens/coracao_cheio.png" alt="" />
         <img id="v3" src="imagens/coracao_cheio.png" alt="" />
       </div>
-      <div class="cronometro">Tempo disponível ?</div>
+      <div class="cronometro">Tempo disponível <span id="cronometro"></span> ?</div>
     </div>
     <script>
-      setInterval(function () {
+      document.getElementById('cronometro').innerHTML = tempo
+
+      var criaMosquito = setInterval(function () {
         posicaoRandomica();
-      }, 1000);
+      }, 2000);
     </script>
   </body>
 </html>

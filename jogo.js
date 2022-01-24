@@ -1,7 +1,9 @@
 //posição randomica do mosquito
+
 var altura = 0;
 var largura = 0;
 var vidas = 1;
+var tempo = 15;
 
 function ajustaTamanhoPalcoJogo() {
   altura = window.innerHeight;
@@ -12,15 +14,26 @@ function ajustaTamanhoPalcoJogo() {
 
 ajustaTamanhoPalcoJogo();
 
+var cronometro = setInterval(function () {
+  tempo -= 1;
+
+  if (tempo < 0) {
+    clearInterval(cronometro)
+    clearInterval(criaMosquito)
+    alert('Ganhou')
+  } else {
+    document.getElementById("cronometro").innerHTML = tempo;
+  }
+}, 1000);
+
 function posicaoRandomica() {
-  //remover o mosquito anterior (caso exista)
   //remover o mosquito anterior (caso exista)
   if (document.getElementById("mosquito")) {
     document.getElementById("mosquito").remove();
 
     //console.log('elemento selecionado foi: v' + vidas)
     if (vidas > 3) {
-      alert("Interromper o jogo (game over)");
+      window.location.href = "fim_de_jogo.html";
     } else {
       document.getElementById("v" + vidas).src = "imagens/coracao_vazio.png";
 
@@ -31,14 +44,12 @@ function posicaoRandomica() {
   var posicaoX = Math.floor(Math.random() * largura) - 90;
   var posicaoY = Math.floor(Math.random() * altura) - 90;
 
-  //corrigir posições negativas
   posicaoX = posicaoX < 0 ? 0 : posicaoX;
   posicaoY = posicaoY < 0 ? 0 : posicaoY;
 
   console.log(posicaoX, posicaoY);
 
-  //elemento html
-
+  //criar o elemento html
   var mosquito = document.createElement("img");
   mosquito.src = "imagens/mosquito.png";
   mosquito.className = tamanhoAleatorio() + " " + ladoAleatorio();
@@ -46,11 +57,13 @@ function posicaoRandomica() {
   mosquito.style.top = posicaoY + "px";
   mosquito.style.position = "absolute";
   mosquito.id = "mosquito";
+  mosquito.onclick = function () {
+    this.remove();
+  };
 
   document.body.appendChild(mosquito);
 }
 
-//define o tamanho randomico do mosquito
 function tamanhoAleatorio() {
   var classe = Math.floor(Math.random() * 3);
 
@@ -66,7 +79,6 @@ function tamanhoAleatorio() {
   }
 }
 
-// define o lado do mosquito
 function ladoAleatorio() {
   var classe = Math.floor(Math.random() * 2);
 
